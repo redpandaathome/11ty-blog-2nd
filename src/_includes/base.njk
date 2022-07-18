@@ -7,13 +7,29 @@
       <link rel="preconnect" href="https://fonts.gstatic.com">
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700..900&family=Roboto:ital,wght@0,400;0,700;1,300&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="/style.css">
+      <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
       <title>{{ title }}</title>
    </head>
    <body>
       {% include "header.njk" %}
 
       {{ content | safe }}
-      
+
       {% include "footer.njk" %}
+      <script>
+         if (window.netlifyIdentity) {
+            window
+               .netlifyIdentity
+               .on("init", user => {
+                  if (!user) {
+                     window
+                        .netlifyIdentity
+                        .on("login", () => {
+                           document.location.href = "/admin/";
+                        });
+                  }
+               });
+         }
+      </script>
    </body>
 </html>
